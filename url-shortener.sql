@@ -1,4 +1,5 @@
 -- URL Shortener SQL Dump
+START TRANSACTION;
 
 -- Database: `url-shortener`
 CREATE DATABASE IF NOT EXISTS `url-shortener` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
