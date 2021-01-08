@@ -8,8 +8,8 @@
 	<?php
 	// YOUR URL
 	$host_url = "https://yoururl.com/";
-	// MYSQL SETTINGS
-	$con = new mysqli("localhost", "username", "password", "db-name");
+	// MYSQL SETTINGS - HOSTNAME, USERNAME, PASSWORD, DATABASE NAME
+	$con = new mysqli("localhost", "username", "password", "url-shortener");
 	// IF URI SET
 	if ($_GET['uri']) {
 		$uri = ltrim($_GET['uri'], '/');
