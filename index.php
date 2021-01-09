@@ -1,3 +1,13 @@
+<?php
+	// REMOVE THIS BEFORE PUBLISHING
+    ini_set('display_errors', 1);   
+    ini_set('display_startup_errors', 1);   
+    error_reporting(E_ALL);
+    // MySQLi Check
+	if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
+	    die("Fatal Error: MySQLi not Installed!");
+	}
+?>
 <!doctype html>
 <html>
 	<title>Simple PHP/ MySQL URL Shortener</title>
@@ -10,6 +20,11 @@
 	$host_url = "https://yoururl.com/";
 	// MYSQL SETTINGS - HOSTNAME, USERNAME, PASSWORD, DATABASE NAME
 	$con = new mysqli("localhost", "username", "password", "url-shortener");
+	// CATCH DB CONN FAIL
+	if ($con->connect_error){
+		$con->close();
+		die("Fatal Error: Can't Connect to Database!");
+	}
 	// IF URI SET
 	if ($_GET['uri']) {
 		$uri = ltrim($_GET['uri'], '/');
@@ -17,11 +32,6 @@
 		if (strlen($uri) != 6) {
 			$con->close();
 			die('Fatal Error: Invalid URI!');
-		}
-		// CATCH DB CONN FAIL
-		if ($con->connect_error){
-			$con->close();
-			die("Fatal Error: Can't Connect to Database!");
 		}
 		// HIT COUNTER
 		$con->query("UPDATE decode SET hits=hits+1 WHERE uri='" . $uri . "'");
