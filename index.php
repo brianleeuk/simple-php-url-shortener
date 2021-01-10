@@ -1,5 +1,5 @@
 <?php
-	// REMOVE THIS BEFORE PUBLISHING
+	// ERROR REPORTING - REMOVE THIS BEFORE PUBLISHING
     ini_set('display_errors', 1);   
     ini_set('display_startup_errors', 1);   
     error_reporting(E_ALL);
@@ -26,7 +26,7 @@
 		die("Fatal Error: Can't Connect to Database!");
 	}
 	// IF URI SET
-	if ($_GET['uri']) {
+	if (isset($_GET['uri'])) {
 		$uri = ltrim($_GET['uri'], '/');
 		// URI CHECK
 		if (strlen($uri) != 6) {
@@ -53,7 +53,7 @@
 		die('Fatal Error: Redirect Failure!');
 	}
 	// IF URL SUBMITTED
-	if ($_GET['url']) {
+	if (isset($_GET['url'])) {
 		$url = $_GET['url'];
 		// SIMPLE URL VERIFY - MUST USE HTTPS (STOPS BOTS)
 		if (substr($url, 0, 8) != "https://") {
@@ -82,7 +82,7 @@
 			}
 			// FINALY INSERT NEW URL/ URI
 			$con->query("INSERT INTO decode(url, uri) VALUES ('" . $url . "','" . $uri_gen . "')");
-			echo "Success!" . $host_url . $uri_gen;
+			echo "Success! " . $host_url . $uri_gen;
 			$con->close();
 		}
 	}
