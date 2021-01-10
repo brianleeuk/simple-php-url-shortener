@@ -1,12 +1,12 @@
 <?php
-	// ERROR REPORTING - REMOVE THIS BEFORE PUBLISHING
-    ini_set('display_errors', 1);   
-    ini_set('display_startup_errors', 1);   
-    error_reporting(E_ALL);
-    // MySQLi Check
-	if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
-	    die("Fatal Error: MySQLi not Installed!");
-	}
+// ERROR REPORTING - REMOVE THIS BEFORE PUBLISHING
+ini_set('display_errors', 1);   
+ini_set('display_startup_errors', 1);   
+error_reporting(E_ALL);
+// MySQLi Check
+if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
+    die("Fatal Error: MySQLi not Installed!");
+}
 ?>
 <!doctype html>
 <html>
@@ -23,7 +23,7 @@
 	// CATCH DB CONN FAIL
 	if ($con->connect_error){
 		$con->close();
-		die("Fatal Error: Can't Connect to Database!");
+		die("Fatal Error: Cannot Connect to Database!");
 	}
 	// IF URI SET
 	if (isset($_GET['uri'])) {
