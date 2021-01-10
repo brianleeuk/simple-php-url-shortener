@@ -19,7 +19,7 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 	// YOUR URL
 	$host_url = "https://yoururl.com/";
 	// MYSQL SETTINGS - HOSTNAME, USERNAME, PASSWORD, DATABASE NAME
-	$con = new mysqli("localhost", "username", "password", "url-shortener");
+	$con = new mysqli("localhost", "username", "password", "url_shortener");
 	// CATCH DB CONN FAIL
 	if ($con->connect_error){
 		$con->close();

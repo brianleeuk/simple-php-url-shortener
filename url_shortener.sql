@@ -2,8 +2,8 @@
 START TRANSACTION;
 
 -- Database: `url-shortener`
-CREATE DATABASE IF NOT EXISTS `url-shortener` DEFAULT CHARACTER SET utf8mb4;
-USE `url-shortener`;
+CREATE DATABASE IF NOT EXISTS `url_shortener` DEFAULT CHARACTER SET utf8mb4;
+USE `url_shortener`;
 
 -- Table structure for table `decode`
 CREATE TABLE `decode` (
