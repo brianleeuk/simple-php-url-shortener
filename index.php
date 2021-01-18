@@ -89,7 +89,7 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 	?>
 	<h1>Simple PHP/ MySQL URL Shortener</h1>
 	<form action="index.php" method="get">
-		Long URL: <input name="url" type="text"/><br/></br>
+		Long URL: <input name="url" type="text"><br><br>
 		<button type="submit" value="Submit">Go!</button>
 	</form>
 </body>
