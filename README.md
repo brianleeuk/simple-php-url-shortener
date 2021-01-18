@@ -1,6 +1,6 @@
 # Simple PHP/ MySQL URL Shortener
 ## A simple URL shortener for your own domain/ webserver.
-### To install!
+### To install
 1. Ensure you have Apache2, PHP, and MySQL/ MariaDB installed and running on your webserver with .htaccess enabled
 2. Create the database structure using the 'url_shortener.sql' script
 3. Create a username and password for your database
