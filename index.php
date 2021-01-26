@@ -10,9 +10,10 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 ?>
 <!doctype html>
 <html>
+<head lang="en">
+	<meta charset="UTF-8">
 	<title>Simple PHP/ MySQL URL Shortener</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<head>
 </head>
 <body>
 	<?php
