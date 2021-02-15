@@ -1,1 +1,4 @@
+# PHP ERROR REPORTING REMOVE BEFORE PUBLISH
+# php_flag display_errors 1
+
 ErrorDocument 404 /index.php?uri=%{REQUEST_URI}

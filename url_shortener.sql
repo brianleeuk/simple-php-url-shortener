@@ -1,7 +1,7 @@
--- URL Shortener SQL Dump
+-- URL_Shortener SQL Dump
 START TRANSACTION;
 
--- Database: `url-shortener`
+-- Database: `url_shortener`
 CREATE DATABASE IF NOT EXISTS `url_shortener` DEFAULT CHARACTER SET utf8mb4;
 USE `url_shortener`;
 

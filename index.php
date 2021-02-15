@@ -1,9 +1,5 @@
 <?php
-// ERROR REPORTING - REMOVE THIS BEFORE PUBLISHING
-ini_set('display_errors', 1);   
-ini_set('display_startup_errors', 1);   
-error_reporting(E_ALL);
-// MySQLi Check
+// MySQLi Check (REMOVE BEFORE PUBLISHING)
 if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
     die("Fatal Error: MySQLi not Installed!");
 }
@@ -29,18 +25,18 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 	// IF URI SET
 	if (isset($_GET['uri'])) {
 		$uri = ltrim($_GET['uri'], '/');
-		// URI CHECK
+		// URI LENGTH CHECK
 		if (strlen($uri) != 6) {
 			$con->close();
-			die('Fatal Error: Invalid URI!');
+			die('Fatal Error: Invalid URI Len!');
 		}
-		// HIT COUNTER
-		$con->query("UPDATE decode SET hits=hits+1 WHERE uri='" . $uri . "'");
-		// FETCH URL WITH URI
+		// URL DB CHECK
 		$sql = "SELECT url FROM decode WHERE uri='" . $uri . "'";
 		$res = $con->query($sql);
-		// SEND USER AWAY TO URL
 		if ($res->num_rows == 1) {
+			// HIT COUNTER
+			$con->query("UPDATE decode SET hits=hits+1 WHERE uri='" . $uri . "'");
+			// SEND USER AWAY TO URL
 			while($row = $res->fetch_assoc()){
 				$url = $row["url"];
 				header("Location: " . $url);
@@ -48,7 +44,7 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 		}
 		else {
 			$con->close();
-			die('Fatal Error: Duplicate in Database!');
+			die('Fatal Error: Invalid URI! Not in Database!');
 		}
 		$con->close(); 
 		die('Fatal Error: Redirect Failure!');
@@ -56,37 +52,42 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 	// IF URL SUBMITTED
 	if (isset($_GET['url'])) {
 		$url = $_GET['url'];
-		// SIMPLE URL VERIFY - MUST USE HTTPS (STOPS BOTS)
+		// SIMPLE URL VERIFY (MUST USE HTTPS)
 		if (substr($url, 0, 8) != "https://") {
 			$con->close();
-			die("Fatal Error: String <i>must</i> start with https://!");
+			echo "Fatal Error: String <em>must</em> start with https://!";
 		}
-		// CHECK IF URL ALREADY IN DB
-		$sql = "SELECT uri FROM decode WHERE url='" . $url . "'";
-		$res = $con->query($sql);
-		if ($res->num_rows == 1) {
-			while($row = $res->fetch_assoc()){
-				$uri = $row["uri"];
-				echo $host_url . $uri;
-				$con->close();
-			}
-		}
-		// ELSE INSERT IT
 		else {
-			$uri_gen = substr(md5(mt_rand()), 0,6); //GEN RAND 6 CHAR URI
-			$sql = "SELECT * FROM decode WHERE uri='" . $uri_gen . "'";
-			// KILLS SCRIPT IF URI HAPPENS TO BE IN DB ALREADY
+			// CHECK IF URL ALREADY IN DB
+			$sql = "SELECT uri FROM decode WHERE url='" . $url . "'";
 			$res = $con->query($sql);
-			if ($res->num_rows > 0) {
-				$con->close();
-				die('Fatal Error: Generated URI already exists in database. Please try again.');
+			if ($res->num_rows == 1) {
+				while($row = $res->fetch_assoc()){
+					$uri = $row["uri"];
+					// PRINT EXISTING SHORT URL
+					echo $host_url . $uri;
+				}
 			}
-			// FINALY INSERT NEW URL/ URI
-			$con->query("INSERT INTO decode(url, uri) VALUES ('" . $url . "','" . $uri_gen . "')");
-			echo "Success! " . $host_url . $uri_gen;
-			$con->close();
+			// ELSE INSERT IT
+			else {
+				$uri_gen = substr(md5(mt_rand()), 0,6); //GEN RAND 6 CHAR URI
+				// CHECK IF GEN URI IS IN DATABASE
+				$sql = "SELECT * FROM decode WHERE uri='" . $uri_gen . "'";
+				$res = $con->query($sql);
+				if ($res->num_rows > 0) {
+					echo "Fatal Error: URI Already in Database!";
+				}
+				else {
+					// FINALY IF EVERYTHING GOOD INSERT NEW URL/ URI
+					$con->query("INSERT INTO decode(url, uri) VALUES ('" . $url . "','" . $uri_gen . "')");
+					// AND PRINT IT
+					echo "Success! " . $host_url . $uri_gen;
+				}
+			}
 		}
 	}
+	// CLOSE DATABASE
+	$con->close();
 	?>
 	<h1>Simple PHP/ MySQL URL Shortener</h1>
 	<form action="index.php" method="get">
