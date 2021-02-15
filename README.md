@@ -6,3 +6,4 @@
 3. Create a username and password for your database
 4. Change the 'username' and 'password' fields in 'index.php'
 5. For security you may wish to move the $con variable/ mysqli() function to a php file away from a public directory. Use a PHP require statement to do this!
+6. ROBOTS.TXT is set to ask search engines to NOT index. Do not use this in your finished project if you wish to appear on search engines.

@@ -1,8 +1,13 @@
 <?php
+# 1. Please enable HTACCESS
+# 2. For error reporting see HTACCESS FILE
+# 3. Do not publish with error reporting or mysql password as public
+
 // MySQLi Check (REMOVE BEFORE PUBLISHING)
 if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
     die("Fatal Error: MySQLi not Installed!");
 }
+
 ?>
 <!doctype html>
 <html>
@@ -15,7 +20,7 @@ if (!function_exists('mysqli_init') && !extension_loaded('mysqli')) {
 	<?php
 	// YOUR URL
 	$host_url = "https://yoururl.com/";
-	// MYSQL SETTINGS - HOSTNAME, USERNAME, PASSWORD, DATABASE NAME
+	// MYSQL SETTINGS - HOSTNAME, USERNAME, PASSWORD, DATABASE NAME (MOVE THIS TO AN OFFLINE DIR with REQUIRE)
 	$con = new mysqli("localhost", "username", "password", "url_shortener");
 	// CATCH DB CONN FAIL
 	if ($con->connect_error){
